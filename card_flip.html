@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CARD-FLIP DEMO</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/boxicons.min.css">
+    <style>
+        body{
+            background: 
+            linear-gradient(90deg,rgba(1,180,255,0.1) 0% 1px,transparent 1px 100%),
+            linear-gradient(0deg,rgba(1,180,255,0.1) 0% 1px,transparent 1px 100%);
+            background-size: 30px 30px;
+        }
+
+
+        #mainCardcontainer{
+            perspective: 1000px;
+        }
+
+        .card-container{
+            transform-style: preserve-3d;
+            position: relative;
+            transition: transform 1s ease-in-out;
+            width: 400px;
+            height: 400px;
+            overflow-y: visible;
+        }
+
+        .front-card, .back-card{
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .back-card{
+            transform: rotateY(180deg);
+        }
+
+        #cardContainer.fliped{
+            transform: rotateY(180deg);
+        }
+
+        .card-foot{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #backBtn{
+            clip-path:polygon( 
+            0% 50%,
+            25% 0%,
+            100% 0%,
+            100% 100%,
+            25% 100%,
+            0% 50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4" id="mainCardContainer">
+                <div class="card-container" id="cardContainer">
+                    <!-- front card -->
+                    <div class="card front-card bg-dark p-3 shadow rounded" id="card">
+                        <div class="card-body">
+                            <p class="card-text text-info">
+                                Web design and web development is so mind blending if you dont understand concepts to their core, and if you give up easily<br>Now you can view our profile and make your decision for your website by asking for developer isaac to improve it by <br>
+                                <ul class="text-success" >
+                                    <li>Secured Websites</li>
+                                    <li>Advanced Systems</li>
+                                    <li>Automation Tasks</li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div class="card-foot">
+                            <button type="button" class="btn btn-outline-primary" onclick="flip()"><i class="bx bx-profile"></i>VIEW PROFILE</button>
+                        </div>
+                    </div>
+
+                    <!-- back card -->
+                     <div class="card back-card shadow rounded bg-dark">
+                        <img src="pictures/mimi (2).jpg" alt="developer profile" class="card-top-img">
+                        <div class="card-body p-3 bg-dark">
+                            <h2 class="card-title text-info">ISAAC ISACK LAB</h2>
+                            <p class="card-text text-secondary">
+                                Modern web developer and computer expert for all OS and IT proffesional in networking and computer architecture from ATC..
+                            </p>
+                        </div>
+                        <div class="card-foot p-3 bg-dark">
+                            <button type="button" class="btn btn-outline-primary"><a href="mailto:isaacisack2@gmail.com">CONTACT ME</a></button>
+                            <button type="button" class="btn btn-outline-danger"  id="backBtn"><span onclick="flip()">BACK</span></button>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function flip(){
+            const card = document.getElementById('cardContainer');
+            card.classList.toggle("fliped");
+        }
+    </script>
+</body>
+</html>

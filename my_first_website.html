@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Website</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        :root{
+            --bg:rgba(3,3,3,0.9);
+            --fg:#2A5d29;
+            --font-fg:rgba(10,20,205,0.8);
+            --glass:rgba(255,255,255,0.1);
+            --glass-strip:rgba(255,255,255,0.3);
+        }
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            height: 100dvh;
+            width: 100dvw;
+            min-height: 100dvh;
+            min-width: 100dvw;
+            background-color: var(--bg);
+            overflow: auto;
+        }
+
+        .grid{
+            width: 100dvw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 500px;
+            z-index: -1;
+            background: linear-gradient(90deg,var(--fg) 0% 1px,transparent 1px 100%),linear-gradient(0deg,var(--fg)0% 1px,transparent 1px 100%);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse at center,black,transparent 100%);
+            pointer-events: none;
+        }
+
+        .fluid-container{
+            height: 100dvh;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            grid-template-areas: 
+            "hero hero"
+            "menu menu"
+            "sidebar content"
+            "footer footer";
+            color: var(--font-fg);
+            grid-template-rows: 1fr 1fr 15fr 1fr;
+        }
+
+        .hero{
+            grid-area: hero;
+            padding: 10px 0;
+        }
+
+        .hero h1{
+            margin: 15px;
+            font-size: 2.5rem;
+            text-shadow:10px 10px 10px var(--font-fg);
+        }
+
+        .menu-bar{
+            grid-area: menu;
+        }
+
+        .sidebar{
+            grid-area: sidebar;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 23px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .sidebar::before{
+            content: "";
+            position: absolute;
+            top: 17px;
+            left: 10px;
+            width: 230px;
+            background-color: var(--glass-strip);
+            height: 3px;
+            box-shadow: 0 4px 28px #FFF;
+        }
+
+        .content{
+            grid-area: content;
+        }
+
+        .footer{
+            grid-area: footer;
+            position: static;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            margin-top: 15px;
+            background-color: var(--bg);
+            padding: 20px;
+        }
+
+        .button-menu{
+            display: grid;
+            gap: 15px;
+            grid-template-rows: repeat(5,1fr);
+            margin-top: 20px;
+            margin-left: -10px;
+        }
+
+        .button-menu li{
+            list-style: none;
+        }
+
+        .button-menu li button{
+            width: 190px;
+            height: 50px;
+            border: 1px solid var(--glass-strip);
+            border-radius: 16px;
+            background: var(--glass);
+            color: var(--font-fg);
+            font-weight: 800;
+            backdrop-filter: blur(10px);
+            transition: box-shadow 0.5s ease,transform 0.2s ease;
+        }
+
+        .button-menu li button:hover{
+            box-shadow: 4px 0 10px var(--glass-strip);
+            transform: scale(1.13);
+        }
+
+        .content-container{
+            width: 96%;
+            height: 100%;
+            border: 1px solid var(--glass-strip);
+            margin: 10px 0 10px 10px;
+            background-image: url(pictures/sun\ set\ \(2\).jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            backdrop-filter: blur(8px);
+            background-blend-mode: darken;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+       .content-container .card{
+            border: 1px solid var(--glass-strip);
+            background-color: var(--glass);
+            height: 300px;
+            margin: 10px;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            border-radius: 18px;
+            padding: 15px 18px;
+            transition: border 0.5s ease,transform 0.2s ease-in-out;
+        }
+
+        .content-container .card:hover{
+            border: 2px solid #AFA0AF;
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body>
+    <div class="grid"></div>
+    <div class="fluid-container">
+        <!-- HERO SECTION -->
+        <header class="hero">
+            <h1 class="text-center text-primary">ISAAC TECHNOLOGIES</h1>
+        </header>
+
+        <!-- Menu bar -->
+        <div class="menu-bar bg-dark col-12">
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#contentMenu"><span class="toggler-icon"></span></button>
+            <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <span class="navbar-brand text-primary">ISAAC.TECH</span>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="menu-item"><a href="#home" class="nav-link active">HOME</a></li>
+                        <li class="menu-item"><a href="#" class="nav-link">ABOUT</a></li>
+                        <li class="menu-item"><a href="#" class="nav-link">SERVICES</a></li>
+                        <li class="menu-item"><a href="#" class="nav-link">CONTACTS</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- side bar items -->
+         <section class="sidebar col-md-12 col-sm-0 bg-dark collapse" id="contentMenu">
+            <div class="sidebar-menu">
+                <ul class="button-menu">
+                    <li><button type="button">DASHBOARD</button></li>
+                    <li><button type="button">ORDERS</button></li>
+                    <li><button type="button">MANAGE ACCOUNT</button></li>
+                    <li><button type="button">SIGN IN</button></li>
+                    <li><button type="button">LOG OUT</button></li>
+                </ul>
+            </div>
+         </section>
+
+         <!-- MAIN CONTENTS -->
+          <section class="content">
+            <div class="container content-container" >
+                <div class="row" id="home">
+                    <div class="card col-md-2 col-sm-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore voluptates corrupti qui, ducimus animi ipsa reprehenderit</div>
+                    <div class="card col-md-2 col-sm-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet reprehenderit libero cupiditate odio ex non aliquid </div>
+                    <div class="card col-md-2 col-sm-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, error aliquid quod amet placeat maxime laborum iusto culpa,</div>
+                    <div class="card col-md-2 col-sm-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum magni est dignissimos sed rem quasi totam cumque! Incidunt.</div>
+                    <div class="card col-md-2 col-sm-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur sit provident, ex minima, sequi asperiores deleniti.</div>
+                    <div class="card col-md-2 col-sm-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate labore repellendus soluta. Possimus nam ullam fuga ?</div>
+                </div>
+            </div>
+          </section>
+
+          <!-- FOOTER -->
+           <footer class="footer text-center">
+            Designed and developed manually by <br>
+            <span class="text-primary f-3">ISAAC ISACK</span>
+           </footer>
+    </div>
+
+    <script src="js/bootstrap.bundle.js"></script>
+</body>
+</html>

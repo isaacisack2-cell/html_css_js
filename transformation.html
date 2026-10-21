@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformations</title>
+    <style>
+        body{
+            min-height: 100vh;
+            background-color: #111;
+            margin: 0;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container{
+            padding: 10px;
+            border: 1px solid #050;
+            border-radius: 10px;
+            box-shadow:0 0 10px #0f0;
+            perspective:300px;
+            width: 350px;
+            height: 120px;
+        }
+
+        .card{
+            color:#999;
+            transition: transform 1s ease;
+            transform-style: preserve-3d;
+            position: relative;
+            width: 94%;
+            height: 80%;
+        }
+
+        .face{
+            overflow: hidden;
+            border-radius: 16px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            padding: 10px;
+        }
+
+        .front{
+            background-color: aquamarine;
+            color: #111;
+        }
+
+        .back{
+            transform: rotateY(180deg);
+            background-color: cadetblue;
+            color: #F00;
+            padding: 16px;
+        }
+
+        .container:hover .card{
+            transform: rotateY(150deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="face front">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit provident expedita ipsum harum doloribus deserunt amet nam ullam nesciunt numquam. Ratione corporis assumenda, repudiandae eligendi unde velit perspiciatis provident dolores.</div>
+            <div class="face back">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas aliquid voluptatum sequi soluta repellendus. Libero rerum consectetur mollitia quaerat deleniti, reprehenderit incidunt! Perferendis eveniet aliquam aperiam earum nihil animi praesentium.</div>
+        </div>
+    </div>
+</body>
+</html>

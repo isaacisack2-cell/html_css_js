@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slider</title>
+</head>
+<body>
+    <input type="range" id="slider" min="20" max="100" value="25"><span id="num"></span>
+    <p id="text">this is text to be changed</p>
+    <!--<input type="color" name="color" id="color">-->
+
+    <script>
+        const slider = document.getElementById('slider');
+        const text = document.getElementById('text');
+        const num = document.getElementById('num');
+        const body = document.body;
+        const rangi = ["red","blue","yellow","green","cyan","black"]
+
+        text.style.transition = "2s";
+        slider.addEventListener('input',()=>{
+            let size = slider.value;
+            if(size > 80){
+                text.textContent = "This is too large";
+            }else if(size > 50){
+                text.textContent = "This is larger enough";
+            }else if(size > 30){
+                text.textContent = "This is good human readable";
+            }else if(size > 16){
+                text.textContent = "This is small"
+            }else{
+                text.textContent = "This is too small to read";
+            }
+            text.style.fontSize = size + "px";
+            num.innerText = size + "px";
+            body.style.backgroundColor = rangi[(size/20)-1];
+            body.style.transition = "5s";
+        })
+    </script>
+</body>
+</html>

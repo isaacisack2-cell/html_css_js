@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Demo 2</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: #1E1E1E;
+            height: 100dvh;
+            width: 100dvw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        canvas{
+            background-color: #4f4f4f;
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px #000000;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="500" height="450"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        const mouse = {x:canvas.width/2,y:canvas.height/2};
+
+        canvas.addEventListener('mousemove',e => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        function animate(){
+            ctx.beginPath();
+            ctx.arc(mouse.x,mouse.y,25,0,Math.PI*2);
+            ctx.fillStyle = '#FFAF1E';
+            ctx.fill();
+
+            ctx.fillStyle = "#0FF";
+            ctx.font = "16px monospace";
+            ctx.fillText(`MouseX:${Math.round(mouse.x)} , MouseY:${Math.round(mouse.y)}`,20,30);
+        }
+
+        const eyeLeft = {x:190,y:330,radius:50,pupilRadius:20};
+        const eyeRight = {x:315,y:330,radius:50,pupilRadius:20};
+
+        function drawEye(eye){
+            //drawing eye conjuctiva
+            ctx.beginPath();
+            ctx.arc(eye.x,eye.y,eye.radius,0,Math.PI*2);
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#000000";
+            ctx.stroke();
+
+            //defining pupils
+            let dx = mouse.x - eye.x;
+            let dy = mouse.y - eye.y;
+            let distance = Math.hypot(dx,dy);
+            let pupilDistance = Math.min(distance,eye.radius - eye.pupilRadius);
+            let angle = Math.atan2(dy,dx);
+            let pupilX = eye.x + (Math.cos(angle) * pupilDistance);
+            let pupilY = eye.y + (Math.sin(angle) * pupilDistance);
+
+            //drawing pupils
+            ctx.beginPath();
+            ctx.arc(pupilX-6,pupilY-6,eye.pupilRadius,0,Math.PI*2);
+            ctx.fillStyle = "#000000";
+            ctx.fill();
+        }
+
+        function blink(){
+
+        }
+
+        function watch(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            drawEye(eyeLeft);
+            drawEye(eyeRight);
+            animate();
+            requestAnimationFrame(watch);
+        }
+        
+        watch();
+
+    </script>
+</body>
+</html>

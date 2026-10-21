@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Pseudo Element</title>
+    <style>
+        :root{
+            --rangi:rgba(2,9,2,0.5);
+        }
+
+        body{
+            /*background: linear-gradient(90deg,var(--rangi) 0 1%,transparent 2% 100%),linear-gradient(0deg,var(--rangi) 0 1%,transparent 2% 100%);
+            background-size: 40px 40px;*/
+        }
+
+        button,h1{
+            position: relative;
+            margin: 30px;
+        }
+
+        h1::after{
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 10px;
+            height: 2px;
+            width: 90px;
+            background-color:  #A82125;
+        }
+
+        button::before{
+        content: "10";
+        position: absolute;
+        top: -16px;
+        left: -8px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #6A9F60;
+        padding: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    button{
+        transform: scale(1.5);
+        border: 1px solid rgba(10,90,10,0.9);
+        padding: 10px;
+        background-color: #AAA;
+    }
+    </style>
+</head>
+<body>
+    <h1>PSEUDO ELEMENTS</h1>
+    <button>Messages</button>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container{
+            width: 150px;
+            height: 450px;
+            border: 3px solid black;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 60px;
+            background-color: rgba(0, 0, 0, 0.616);
+        }
+
+        .box{
+            width: 110px;
+            height: 110px;
+            /*background: red;*/
+            border: 2px solid;
+            margin-top: 50px;
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="mabox">
+            <div class="red box" id="red"></div>
+            <div class="yellow box" id="yellow"></div>
+            <div class="green box" id="green"></div>
+        </div>
+    </div>
+    <div class="rod" style="width: 200px;height: 100px;background-color: black;"></div>
+    <div class="vrod" style="width: 100px;height: 600px;background-color: black;margin-top: 500px;"></div>
+    
+    <script>
+        const red_box = document.getElementById('red');
+        const yellow_box = document.getElementById('yellow');
+        const green_box = document.getElementById('green');
+        const body = document.body;
+        
+
+        function light(container,time,rangi){
+            const timer = setInterval(()=>{
+                if(container.style.backgroundColor==='white' || container.style.backgroundColor===""){
+                    container.style.backgroundColor=rangi;
+                }else{
+                    container.style.backgroundColor="white";
+                }
+            },time*1000)
+            return timer;
+        }
+
+        light(red_box,3,"red");
+        light(yellow_box,5,"yellow");
+        light(green_box,2,"green");
+  
+    </script>
+</body>
+</html>

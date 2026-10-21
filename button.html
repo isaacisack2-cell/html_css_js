@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camera & Mic Lab</title>
+<style>
+  body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 0 12px; }
+  video, canvas, img { width: 100%; border-radius: 8px; background: #000; }
+  button { padding: 10px 14px; margin: 4px 2px; font-size: 15px; }
+  h3 { margin-top: 28px; }
+</style>
+</head>
+<body>
+
+<!-- ================= HTML (muundo wa ukurasa) ================= -->
+
+<h3>📷 Camera</h3>
+<!-- video: hapa ndipo camera live inaonekana -->
+<!-- autoplay = ianze yenyewe, playsinline = isifungue fullscreen kwenye simu -->
+<video id="video" autoplay playsinline muted></video>
+<div>
+  <button id="startCam">Fungua Camera</button>
+  <button id="snap">Piga Picha</button>
+  <button id="stopCam">Zima Camera</button>
+</div>
+<!-- canvas: tunaitumia kama "karatasi" ya kuchora frame ya video (hii ndo picha) -->
+<canvas id="canvas" style="display:none"></canvas>
+<!-- img: kuonyesha picha iliyopigwa -->
+<img id="photo" alt="picha itaonekana hapa" style="display:none">
+<a id="downloadPhoto" style="display:none" download="picha.png">⬇️ Download picha</a>
+
+<h3>🎤 Mic - Record</h3>
+<div>
+  <button id="startRec">Anza Record</button>
+  <button id="stopRec">Stop Record</button>
+</div>
+<!-- audio: player ya kusikiliza ulichorecord -->
+<audio id="player" controls style="width:100%"></audio>
+<a id="downloadAudio" style="display:none" download="sauti.webm">⬇️ Download sauti</a>
+
+<h3>🔊 Mic → Speaker (sikia live)</h3>
+<p><b>Tahadhari:</b> tumia headphones, la sivyo speaker itarudisha sauti kwenye mic na utasikia "kelele ya feedback" (mlio mkali).</p>
+<div>
+  <button id="startLive">Anza Kusikia Live</button>
+  <button id="stopLive">Acha</button>
+</div>
+
+<script>
+// ================= JAVASCRIPT =================
+
+// ---------- Kuchukua elements za HTML tunazozihitaji ----------
+// document.getElementById("id") = tafuta element kwa id yake
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const photo = document.getElementById("photo");
+const downloadPhoto = document.getElementById("downloadPhoto");
+const player = document.getElementById("player");
+const downloadAudio = document.getElementById("downloadAudio");
+
+// ---------- Variables za kuhifadhi vitu tutakavyovitumia sehemu mbalimbali ----------
+let camStream = null;       // stream ya camera (ili tuweze kuizima baadaye)
+let recStream = null;       // stream ya mic kwa ajili ya record
+let mediaRecorder = null;   // kifaa cha kurecord
+let chunks = [];            // vipande vya sauti vinavyokusanywa wakati wa kurecord
+let liveStream = null;      // stream ya mic kwa ajili ya live monitor
+let audioCtx = null;        // AudioContext = "mixing desk" ya sauti ndani ya browser
+
+
+// =====================================================
+// 1) CAMERA
+// =====================================================
+
+document.getElementById("startCam").onclick = async () => {
+  try {
+    // navigator.mediaDevices.getUserMedia() = omba ruhusa ya camera/mic
+    // Browser itaonyesha popup "Allow?" - user akikubali, tunapata "stream"
+    // stream = mtiririko wa data (video frames) kutoka kwenye camera
+    camStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user" }, // "user" = camera ya mbele, "environment" = ya nyuma
+      audio: false                   // hatuhitaji sauti hapa
+    });
+
+    // Tunaiunganisha stream na <video> ili tuone live picture
+    video.srcObject = camStream;
+  } catch (err) {
+    // Kosa linaweza kutokea kama: user akikataa, hakuna camera, au page si HTTPS/localhost
+    alert("Camera imeshindwa: " + err.name + " - " + err.message);
+  }
+};
+
+document.getElementById("snap").onclick = () => {
+  // Kama camera haijafunguliwa, usiendelee
+  if (!camStream) return alert("Fungua camera kwanza!");
+
+  // Weka size ya canvas sawa na size halisi ya video (videoWidth/videoHeight)
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  // getContext("2d") = pata "brashi" ya kuchora kwenye canvas
+  const ctx = canvas.getContext("2d");
+
+  // drawImage = chora frame ya video ya sasa hivi kwenye canvas (hii ndo "kupiga picha")
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  // canvas.toDataURL = geuza kilichochorwa kuwa picha (PNG) kama text ndefu (base64)
+  const dataUrl = canvas.toDataURL("image/png");
+
+  // Onyesha picha kwenye <img> na weka link ya kudownload
+  photo.src = dataUrl;
+  photo.style.display = "block";
+  downloadPhoto.href = dataUrl;
+  downloadPhoto.style.display = "inline-block";
+};
+
+document.getElementById("stopCam").onclick = () => {
+  if (camStream) {
+    // Stream ina "tracks" (video track). Kuzima = stop() kila track
+    // Hii ndo inazima ile taa ya camera
+    camStream.getTracks().forEach(track => track.stop());
+    camStream = null;
+    video.srcObject = null;
+  }
+};
+
+
+// =====================================================
+// 2) MIC - RECORD NA KUCHEZA
+// =====================================================
+
+document.getElementById("startRec").onclick = async () => {
+  try {
+    // Omba ruhusa ya mic tu (audio: true, video: false)
+    recStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    // MediaRecorder = class ya browser ya kurecord stream
+    mediaRecorder = new MediaRecorder(recStream);
+    chunks = []; // futa vipande vya record ya zamani
+
+    // Event: kila mara recorder ikipata kipande cha sauti, tunakiweka kwenye array
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) chunks.push(e.data);
+    };
+
+    // Event: record ikisimama, tunaunganisha vipande vyote kuwa faili moja
+    mediaRecorder.onstop = () => {
+      // Blob = "faili ghafi" kwenye memory
+      const blob = new Blob(chunks, { type: "audio/webm" });
+
+      // createObjectURL = tengeneza link ya muda ya kuonyesha blob
+      const url = URL.createObjectURL(blob);
+
+      player.src = url;              // player icheze sauti
+      downloadAudio.href = url;      // link ya download
+      downloadAudio.style.display = "inline-block";
+
+      // Zima mic (taa ya mic izime)
+      recStream.getTracks().forEach(t => t.stop());
+    };
+
+    mediaRecorder.start(); // anza kurecord
+  } catch (err) {
+    alert("Mic imeshindwa: " + err.name + " - " + err.message);
+  }
+};
+
+document.getElementById("stopRec").onclick = () => {
+  // Stop tu kama inarecord kweli
+  if (mediaRecorder && mediaRecorder.state === "recording") {
+    mediaRecorder.stop(); // hii itatrigger onstop hapo juu
+  }
+};
+
+
+// =====================================================
+// 3) MIC → SPEAKER (LIVE)
+// =====================================================
+// Wazo: mic -> (Web Audio API) -> speaker. Kama waya inayounganisha vitu viwili.
+
+document.getElementById("startLive").onclick = async () => {
+  try {
+    // Kuzuia kuanza mara mbili
+    if (audioCtx) return;
+
+    // Omba mic. Tunazima echoCancellation ili sauti ipite kama ilivyo
+    // (kawaida browser inajaribu kuondoa echo, lakini hapa tunataka tuone tofauti)
+    liveStream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: false, noiseSuppression: false }
+    });
+
+    // AudioContext = mazingira ya kuchakata sauti
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // source = "mwanzo wa waya": sauti inayotoka kwenye mic
+    const source = audioCtx.createMediaStreamSource(liveStream);
+
+    // (Hiari) gain = kitufe cha volume. 1 = kawaida, 2 = mara mbili
+    const gain = audioCtx.createGain();
+    gain.gain.value = 1;
+
+    // Unganisha: mic -> gain -> speaker
+    // audioCtx.destination = speaker/headphones ya kifaa chako
+    source.connect(gain);
+    gain.connect(audioCtx.destination);
+  } catch (err) {
+    alert("Live mic imeshindwa: " + err.name + " - " + err.message);
+  }
+};
+
+document.getElementById("stopLive").onclick = () => {
+  if (liveStream) {
+    liveStream.getTracks().forEach(t => t.stop()); // zima mic
+    liveStream = null;
+  }
+  if (audioCtx) {
+    audioCtx.close(); // funga mazingira ya sauti
+    audioCtx = null;
+  }
+};
+</script>
+</body>
+</html>

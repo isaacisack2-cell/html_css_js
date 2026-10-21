@@ -1,0 +1,306 @@
+:root{
+    --primary:#00ffcc;
+    --secondary:rgb(255 180 1 / 96%);
+    --bg:#141414;
+    --grass:rgba(255,255,255,0.2);
+    --navy: rgba(0, 0, 255, 1.0);
+    --draft: rgba(0,200,0,0.1);
+    scroll-behavior: smooth;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--bg);
+    min-height: 100vh;
+    min-width: 100vw;
+    transition: scroll 0.5s ease;
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    padding: 10px;
+    color: var(--primary);
+    font-family: sans-serif;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    grid-template-areas: 
+                        "header header header"
+                        "hero hero hero"
+                        "projects projects projects"
+                        "footer footer footer";
+}
+
+/* header section */
+header{
+    grid-area: header;
+    padding-top: 10px;
+    margin-bottom: 35px;
+    display: grid;
+    grid-auto-flow: row;
+    text-align: center;
+}
+
+header > h1 {
+    text-shadow: 5px 10px 20px;
+}
+
+header > h1 > span {
+    color: var(--secondary);
+    position: relative;
+}
+
+header > h1 > span::after{
+    content: "";
+    width: 80px;
+    background-color: var(--primary);
+    border: 2px solid var(--primary);
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+}
+
+header > nav {
+    min-width: 100%;
+    display: grid;
+    place-content: center stretch;
+    background-color: var(--grass);
+    margin-top: 16px;
+}
+
+header > nav > ul{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    column-gap: 15px;
+    padding: 20px;
+}
+
+header ul li{
+    list-style: none;
+}
+
+header ul li a{
+    text-decoration: none;
+    font-size: 24px;
+    padding: 9px;
+    transition: background-color 0.7s ease,transform 0.3s ease-in;
+    color: var(--navy);
+}
+
+header ul li a:hover{
+    background-color: var(--grass);
+    transform: scale(1.1) translateY(-5px);
+}
+
+/* HERO SECTION */
+.hero{
+    grid-area: hero;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin: 20px 5px 80px 0;
+    column-gap: 20px;
+}
+
+.hero #hero{
+    font-family: monospace;
+    font-size: 20px;
+    line-height: 34px;
+}
+
+.hero #hero h2{
+    color: var(--secondary);
+}
+
+.hero #hero h3{
+    color: var(--grass);
+}
+
+.hero #hero .buttons button{
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    border-radius: 9px;
+    font-family: sans-serif;
+    margin-top: 10px;
+}
+
+.hero > #hero > .buttons > button > a {
+    text-decoration: none;
+    color: var(--primary);
+}
+
+.hero > #hero > .buttons > button:hover{
+    background: linear-gradient(90deg,var(--primary) 0% 10%,var(--grass) 60% 100%);
+    transform: scale(1.07);
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.hero > .profile-card > #profileCircle{
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px;
+    overflow: hidden;
+}
+
+.profile-card #devIntro{
+    margin-top: 10px;
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    column-gap: 12px;
+    row-gap: 8px;
+}
+
+.profile-card #devIntro #stats{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 9px;
+}
+
+.profile-card #devIntro .num{
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+.profile-card #devIntro .txt{
+    font-size: 12px;
+}
+
+/* PROJECTS / SKILLS / CONTACTS */
+.projects{
+    grid-area: projects;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 29px 19px;
+}
+
+@media (max-width:768px) {
+    .projects{
+        grid-area: projects;
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+        gap: 30px 10px;
+    }
+}
+
+.projects .featured,.projects .skills{
+    grid-column: span 2;
+}
+
+.projects .project{
+    border: 1px solid var(--primary);
+    padding: 16px;
+    border-radius: 10px;
+    place-items: center;
+    transition: all 0.3s ease-in;
+}
+
+.projects .project h3{
+    position: relative;
+    margin-bottom: 9px;
+}
+
+.projects > .project > h3::after{
+    content: "";
+    width: 100%;
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+    border:1px solid var(--primary);
+}
+
+.projects .project h4{
+    color: var(--secondary);
+}
+
+.projects .project p{
+    line-height: 25px;
+}
+
+.projects .project:hover{
+    transform: scale(1.04);
+    border: 1px solid var(--grass);
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.projects #skills{
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: 20px;
+    background: linear-gradient(90deg, var(--draft) 0% 1px, transparent 1px 100%),
+                linear-gradient(0deg, var(--draft) 0% 1px, transparent 1px 100%);
+    background-size: 30px 30px;
+    mask-image: radial-gradient(circle at center,black 0% 70%,transparent 99% 100%);
+}
+
+.projects #skills .langSkills{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 200px;
+}
+
+.projects #skills h3{
+    color: var(--secondary);
+}
+
+.projects #skills .framework-skills{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 200px;
+}
+
+.projects .contact{
+   background-image: url(../pictures/lion\ .jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(10px);
+}
+
+.projects .contact p{
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+
+/* FOOTER */
+footer{
+    grid-area: footer;
+    text-align: center;
+    padding: 40px;
+    background-color: var(--grass);
+    margin: 30px 0;
+}
+
+footer .left{
+    text-align: left;
+    font-size: 18px;
+    color: var(--primary);
+}
+
+footer > .right {
+    text-align: right;
+    margin-top: 17px;
+}
+
+footer > .right a{
+    text-decoration: none;
+    font-size: 19px;
+    background-color: var(--bg);
+    border-radius: 10px;
+    padding: 9px;
+    transition: all 0.2s ease;
+}
+
+footer > .right a:hover{
+    box-shadow: 0 0 10px var(--grass);
+    transform: translateY(-5px);
+}

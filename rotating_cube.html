@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rotating a cube</title>
+    <style>
+        body{
+            height: 100vh;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container{
+            width: 300px;
+            height: 300px;
+            perspective: 500px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cube{
+            width: 200px;
+            height: 200px;
+            transition: transform 1s ease;
+            transform-style: preserve-3d;
+            animation:spin 12s infinite linear;
+            position: relative;
+        }
+
+        .face{
+            border: 1px solid #FFFFFF;
+            background-color: rgba(0,255,0,0.5);
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+        }
+
+        .front{transform: rotateY(0deg) translateZ(100px);}
+        .back{transform: rotateY(180deg) translateZ(100px);}
+        .left{transform: rotateY(-90deg) translatez(100px);}
+        .right{transform:rotateY(90deg) translateZ(100px);}
+        .top{transform: rotateX(90deg) translateZ(100px);}
+        .bottom{transform: rotateX(-90deg) translateZ(100px);}
+
+        @keyframes spin{
+            from{transform: rotateX(0deg) rotateY(0deg);}
+            to{transform: rotateX(360deg) rotateY(360deg);}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cube">
+            <div class="face top">TOP</div>
+            <div class="face bottom">BOTTOM</div>
+            <div class="face right">RIGHT</div>
+            <div class="face left">LEFT</div>
+            <div class="face front">FRONT</div>
+            <div class="face back">BACK</div>
+        </div>
+    </div>
+</body>
+</html>

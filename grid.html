@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grid drawer</title>
+    <style>
+        body{
+            background: #0A0E17;
+            color:#E5EDF3;
+            font-family: sans-serif;
+            padding: 2rem;
+        }
+        h2{color: #5EEAD4;margin-top: 3rem;}
+        p.explain{color:#8A97A6;max-width: 600px;}
+        .box{
+            width: 100%;
+            max-width: 600px;
+            height: 200px;
+            border: 1px solid #333;
+        }
+        
+        .step1{
+            background-color: #101826;
+        }
+
+        .step2{
+            background: linear-gradient(90deg,#5EEAD4,#0A0A17);
+        }
+
+        .step3{
+            background: linear-gradient(90deg, #5EEAD4 1px, transparent 1px);
+        }
+
+        .step4{
+            background-image: linear-gradient(90deg, #5EEAD4, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .step5{
+            background-image: 
+            linear-gradient(90deg,#5EEAD4 1px,transparent 1px),
+            linear-gradient(0deg,#5EEAD4 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .step6{
+            background-image: 
+            linear-gradient(90deg,rgba(94,234,212,0.35) 1px, transparent 1px),
+            linear-gradient(0deg,rgba(94,234,212,0.35) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .step7{
+            background-image: 
+            linear-gradient(90deg,rgba(94,234,212,0.35) 1px, transparent 1px),
+            linear-gradient(0deg,rgba(94,234,212,0.35) 1px, transparent 1px);
+            background-size: 30px 30px;
+            mask-image: radial-gradient(ellipse at center, black 40%,transparent 70%);
+        }
+
+        .box-langu{
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            border: 1px solid #2A3D41;
+            background-image: 
+            linear-gradient(90deg, rgba(100,224,220,0.3) 1px, transparent 1px),
+            linear-gradient(0deg, rgba(100,224,220,0.3) 1px, transparent 1px);
+            background-size: 30px 30px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 60%);
+        }
+
+        .box-langu h3{
+            position: relative;
+            top: 33%;
+            left: 36%;
+            max-width: 200px;
+            line-height: 1.99rem;
+            color: #5EEAD4;
+            font-weight: bold;
+            font-size: 1.4rem;
+            text-shadow: 0 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>DRAWING GRID USING GRADIENT</h1>
+    <p class="explain">Full Trace For Drawing Grid Using Gradient</p>
+
+    <h2>STEP 1 - Color Only</h2>
+    <p class="explain">This only using color</p>
+    <div class="box step1"></div>
+
+    <h2>STEP 2 - Normal gradient</h2>
+    <p class="explain">teal + navy gradient</p>
+    <div class="box step2"></div>
+
+    <h2>STEP 3 - hard stop trick</h2>
+    <p class="explain">make color stop suddenly at 1px</p>
+    <div class="box step3"></div>
+
+    <h2>STEP 4 - Repeate Line After Every 40px (Using Background-size)</h2>
+    <p class="explain">Repeate line after every 40px</p>
+    <div class="box step4"></div>
+
+    <h2>STEP 5 - adding horizontal grid</h2>
+    <p class="explain">adding horizontal grid 0deg</p>
+    <div class="box step5"></div>
+
+    <h2>STEP 6 - Using rgba instead of hex to redice opacity</h2>
+    <p class="explain">Reducing grid opacity to make it feel smooth</p>
+    <div class="box step6"></div>
+
+    <h2>STEP 7 - add fade on edges (Using mask-image)<h2>
+    <p class="explain">To remove hard edges of the grid</p>
+    <div class="box step7"></div>
+
+    <h2>MANUAL TRIAL</h2>
+    <p class="explain">Trying to draw mannually</p>
+    <div class="box-langu"><h3>DESIGNED AND DEVELOPED BY ISAAC ISACK</h3></div>
+</body>
+</html>

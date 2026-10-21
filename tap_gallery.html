@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tap gellery</title>
+    <style>
+        #image_container{
+            display: flex;
+            gap: 10px;
+            background-color: rgba(10,11,10,0.9);
+            padding: 17px;
+            overflow: auto;
+            white-space: nowrap;
+            border-radius: 9px;
+        }
+
+        #image_container img{
+            padding: 10px;
+            min-height: 70px;
+            min-width: 90px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        #image_container img:hover{
+            box-shadow: 0 0 10px #AAA;
+            transform: translateY(-6px);
+            filter: blur(2px);
+        }
+
+        #preview_container{
+            max-width: 1000px;
+            max-height: 1000px;
+            background-color: #AAA;
+            width: 1000px;
+            height: 600px;
+            margin: 20px 0;
+            overflow: scroll;
+            padding: 0;
+            position: relative;
+        }
+
+        #preview_container img{
+            min-width: 100%;
+            min-height: 100%;
+        }
+
+        #desc{
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #000;
+            color: #FFF;
+            padding: 10px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="image_container">
+        <img src="pictures/dog.jpg" alt="" class="img">
+        <img src="pictures/here.jpg" alt="" class="img">
+        <img src="pictures/hipo.jpg" alt="" class="img">
+        <img src="pictures/giraff.jpg" alt="" class="img">
+        <img src="pictures/baboon.jpg" alt="" class="img">
+        <img src="pictures/chicken.jpg" alt="" class="img">
+        <img src="pictures/lion .jpg" alt="" class="img">
+        <img src="pictures/tigers.jpg" alt="" class="img">
+        <img src="pictures/white tiger.jpg" alt="" class="img">
+        <img src="pictures/sun set .jpg" alt="" class="img">
+        <img src="pictures/sun rise (2).jpg" alt="" class="img">
+    </div>
+    <div id="preview_container">
+        <img src="pictures/dog.jpg" alt="" id="preview_img">
+        <div id="desc"></div>
+    </div>
+
+    <script>
+        const preview_img = document.getElementById('preview_img');
+        const images = document.querySelectorAll('.img');
+        const desc = document.getElementById('desc');
+        
+        images.forEach(img => {
+            img.addEventListener('click', e=>{
+                preview_img.src = img.src;
+                desc.innerText = img.src;
+            });
+        });
+    </script>
+</body>
+</html>

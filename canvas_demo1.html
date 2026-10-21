@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>learning canvas</title>
+    <style>
+        body{
+            background-color: #1e1e1e;
+            margin: 0;
+            padding: 0;
+            height: 100dvh;
+            width: 100dvw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        canvas{
+            background-color: #3f3f3f;
+            border: 1px solid #aeaeae;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px #aeaeae;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="board" width="600" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('board');
+        const ctx = canvas.getContext('2d');
+
+        function draw_rect(x,y,width,height){
+            ctx.beginPath();
+            ctx.fillStyle = "#00FF00";
+            ctx.fillRect(x,y,width,height);
+        }
+        
+        const box = {x:0,y:20,width:100,height:50};
+
+        const move = setInterval(()=>{
+            box.x = (box.x + 1) % canvas.width;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            draw_rect(box.x,box.y,box.width,box.height);
+            console.log(box.x+" "+box.y+" "+box.width+" "+box.height);
+        },10);
+
+        ctx.beginPath();
+        ctx.fillStyle = "#FF0000";
+        ctx.arc(200,150,50,0,Math.PI*2);
+        ctx.fill();
+
+    </script>
+</body>
+</html>

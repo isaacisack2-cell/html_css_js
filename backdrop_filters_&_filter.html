@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackDrop Filter</title>
+    <style>
+        body{
+            background-image: url(pictures/sun\ set\ \(2\).jpg);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card{
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            width: 200px;
+            backdrop-filter: blur(20px);
+            filter: drop-shadow(0 0 10px white);
+            box-shadow: 0 0 5px rgb(200,200,200);
+            border-radius: 19px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem ratione facere, aliquam voluptatibus placeat dolor nesciunt laboriosam reiciendis magni, ipsa quas recusandae sit fugiat fugit qui cupiditate. Minus error ut facilis molestias ex optio sint cumque vitae incidunt laborum, quod, officia minima. Earum ducimus praesentium velit. Facere a placeat odit aliquid hic consequuntur inventore nobis ipsa, nam optio, id dolores quasi iure suscipit soluta mollitia!
+    </div>
+</body>
+</html>

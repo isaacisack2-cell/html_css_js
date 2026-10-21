@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slide-change-bgcolor</title>
+</head>
+<body>
+    <input type="range" id="r" min="0" max="255" value="0">
+    <input type="range" id="g" min="0" max="255" value="0">
+    <input type="range" id="b" min="0" max="255" value="0">
+
+    <script>
+        let r = document.getElementById('r');
+        let g = document.getElementById('g');
+        let b = document.getElementById('b');
+        const body = document.body;
+        const inputs = document.querySelectorAll('input');
+        body.style.backgroundColor = `rgb(${r.value},${g.value},${b.value})`;
+        inputs.forEach(slider=>{
+            slider.addEventListener('input',()=>{
+                body.style.backgroundColor = `rgb(${r.value},${g.value},${b.value})`;
+            })
+        })
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Xummary fro demo1</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+    .container-fluid{height: 100dvh;}
+    </style>
+</head>
+<body>
+    <div class="container-fluid bg-dark text-primary p-5">
+        <div class="row">
+
+            <!-- ALERT -->
+            <div class="col-4">
+                <div class="alert alert-success alert-dismissible fade show">
+                    200 OK WELCOME HERO
+                    <button class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <div class="alert alert-danger alert-dismissible fade show">
+                    404 NOT FOUND
+                    <button class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </div>
+
+            <!-- MODAL -->
+            <div class="col-4">
+                <button class="btn btn-outline-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#myModal">SEND REQUEST</button>
+                <div class="modal fade" id="myModal" data-bs-backdrop="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">SEND POST REQUEST NOW</h5>
+                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">Server is running at http://127.0.0.1:5000/login <br>Send request now</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-outline-primary">SEND</button>
+                                <button class="btn btn-outline-danger" data-bs-dismiss="modal">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACCORDION -->
+            <div class="col-4">
+                <div class="accordion" id="myAccordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#c1">Whats Python</button>
+                        </div>
+                        <div class="accordion-collapse collapse fade" id="c1" data-bs-parent="#myAccordion">
+                            <p class="accordion-body">This is a light weighted language but most powerfull used for automation and most of AI</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#c2">WHY PYTHON</button>
+                        </div>
+                        <div class="accordion-collapse collapse" id="c2" data-bs-parent="#myAccordion">
+                            <p class="accordion-body">Because its simple and uses simple and understood syntax and its slightly closer to human english compared to other languages like c/c++</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#c3">Is google use python</button>
+                        </div>
+                        <div class="accordion-collapse collapse" id="c3" data-bs-parent="#myAccordion">
+                            <p class="accordion-body">Yes even other big company run there services using PYTHON most in data management and AI operations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <!-- CHECK BOX / RADIO BTNS -->
+            <div class="col-12 col-md-6">
+                <div class="btn-group" role="group">
+                    <input type="radio" name="role" id="student" class="btn-check">
+                    <label for="student" class="btn btn-outline-primary m-1">STUDENT</label>
+
+                    <input type="radio" name="role" id="teacher" class="btn-check">
+                    <label for="teacher" class="btn btn-outline-success m-1">TEACHER</label>
+
+                    <input type="radio" name="role" id="guest" class="btn-check">
+                    <label for="guest" class="btn btn-outline-danger m-1">GUEST</label>
+                </div>
+            </div>
+
+            <!-- DROP DOWN -->
+            <div class="col-6 col-md-3">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                        VIEW FRAMEWORK
+                    </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a href="#myAccordion" class="dropdown-item"></a></li>
+                            <li><a href="#" class="dropdown-item">BOOTSTRAP</a></li>
+                            <li><a href="#" class="dropdown-item">DJANGO</a></li>
+                            <li><a href="#" class="dropdown-item">LARAVEL</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a href="#" class="dropdown-item">SPRING</a></li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.js"></script>
+</body>
+</html>
